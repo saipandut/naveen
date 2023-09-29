@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather Report</title>
+</head>
+<body>
+    <h1>Weather Report</h1>
+
+    <!-- Input field for place name -->
+    <input type="text" id="placeInput" placeholder="Enter a place">
+    <button onclick="getWeather()">Get Weather</button>
+
+    <div id="weatherData">
+        <!-- Weather data will be displayed here -->
+    </div>
+
+    <script>
+        // Replace 'YOUR_API_KEY' with your actual OpenWeatherMap API key
+        const apiKey = 'd6a5dac8291831f40e26f96f4554b01e';
+
+        function getWeather() {
+            const place = document.getElementById('placeInput').value;
+            const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${place}&appid=${apiKey}`;
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const weatherData = `
+                        <h2>${data.name}, ${data.sys.country}</h2>
+                        <p>Weather: ${data.weather[0].description}</p>
+                        <p>Temperature: ${Math.round(data.main.temp - 273.15)}°C</p>
+                        <p>Humidity: ${data.main.humidity}%</p>
+                        <p>Wind Speed: ${data.wind.speed} m/s</p>
+                    `;
+                    document.getElementById('weatherData').innerHTML = weatherData;
+                })
+                .catch(error => {
+                    console.error('Error fetching weather data:', error);
+                    document.getElementById('weatherData').textContent = 'Error fetching weather data';
+                });
+        }
+    </script>
+</body>
+</html>
