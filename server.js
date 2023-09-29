@@ -15,11 +15,15 @@ app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', (req, res) => {
-  res.render('login');
+  res.render('home');
 });
 
 app.get('/signup', (req, res) => {
   res.render('signup');
+});
+
+app.get('/dashboard', (req, res) => {
+  res.render('dashboard');
 });
 // Handle signup
 app.post('/signup', async (req, res) => {
@@ -66,7 +70,12 @@ if (password.length < 8) {
     res.redirect('/signup');
   }}}
 });
-*/
+app.get('/logout', (req, res) => {
+  res.render('logout');
+});
+app.get('/login', (req, res) => {
+  res.render('login');
+});
 app.post('/login', async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
@@ -97,9 +106,11 @@ app.post('/login', async (req, res) => {
   });
   
 
-app.get('/dashboard', (req, res) => {
-  res.render('dashboard');
+app.get('/about', (req, res) => {
+  res.render('about');
 });
+
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

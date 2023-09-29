@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Rating</title>
+<style>body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(90deg, #c41ba8, #374296, #954e25);          border-radius: 10px;
+
+}
+
+.rating {
+    font-size: 30px;
+    margin: 20px 0;
+}
+
+.star {
+    cursor: pointer;
+    color: #ccc;
+}
+
+.star:hover,
+.star.selected {
+    color: #ffcc00;
+}
+</style>
+</head>
+<body>
+    <h1>Feedback Rating</h1>
+    <div class="rating">
+        <span class="star" onclick="rate(1)">&#9733;</span>
+        <span class="star" onclick="rate(2)">&#9733;</span>
+        <span class="star" onclick="rate(3)">&#9733;</span>
+        <span class="star" onclick="rate(4)">&#9733;</span>
+        <span class="star" onclick="rate(5)">&#9733;</span>
+       <h4 ><p ><a href="/"  style="color: #ffcc00;">Back to home page</a></p></h4> 
+
+    </div>
+    <p id="feedbackMessage"></p>
+    <script>const stars = document.querySelectorAll(".star");
+        const feedbackMessage = document.getElementById("feedbackMessage");
+        
+        let userRating = 0;
+        
+        function rate(rating) {
+            userRating = rating;
+            highlightStars(rating);
+            displayFeedbackMessage(rating);
+        }
+        
+        function highlightStars(rating) {
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.add("selected");
+                } else {
+                    star.classList.remove("selected");
+                }
+            });
+        }
+        
+        function displayFeedbackMessage(rating) {
+            const messages = [
+                "Terrible",
+                "Poor",
+                "Okay",
+                "Good",
+                "Excellent"
+            ];
+        
+            feedbackMessage.textContent = `You rated this ${messages[rating - 1]}.`;
+        }
+        </script>
+</body>
+</html>
