@@ -25,6 +25,8 @@ app.get('/signup', (req, res) => {
 app.post('/signup', async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
+  const user = req.body.user;
+
   // Check if the email is already in use
   try {
     const existingUser = await firebaseAdmin.auth().getUserByEmail(email);
@@ -48,12 +50,14 @@ if (password.length < 8) {
     // Create a new user in Firebase Authentication
     const userRecord = await firebaseAdmin.auth().createUser({
       email: email,
-      password: password, // Store the hashed password
+      password: password,
+      user:user,
     });
     // Store user details (email) in Firestore
     await db.collection('users').doc(userRecord.uid).set({
       email: email,
       password: password,
+      user:user,
     });
     console.log('Successfully created user with UID:', userRecord.uid);
     res.redirect('/dashboard');
