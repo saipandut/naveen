@@ -3,19 +3,9 @@
 <head>
     <title>Weather Report</title>
     <style>
-      body {
-          font-family: Arial, sans-serif;
-          background-color: #f0f0f0;
-          text-align: center;
-          margin: 0;
-          padding: 0;
-          background-image: url(https://th.bing.com/th/id/R.64249a4322b89e7f3fa3194437a401db?rik=LgJIXt2lz8UV3Q&riu=http%3a%2f%2fwww.ewn.com.au%2fimages%2fservices%2flocal_weather_outlook_title.jpg&ehk=hugkYcfVErhRVB3LFhtjXGF9s5rk2ykJMftgbokkapg%3d&risl=&pid=ImgRaw&r=0);
-          background-repeat: no-repeat; /* Prevent the image from repeating */
-    background-size: cover; /* Cover the entire element with the image */
-    background-position: center;
-        }
 
-      h1 {
+      <style>
+        h1 {
           color: #333;
       }
 
@@ -51,12 +41,49 @@
       p {
           margin: 10px 0;
       }
-      </style>
+        body {
+            background-color: #333; /* Background color */
+            background-image: url(https://wallpapercave.com/wp/8juvAu0.jpg);
+
+            font-family: Arial, sans-serif;
+          text-align: center;
+          margin: 0;
+          padding: 0;
+          background-repeat: no-repeat; 
+    background-size: cover;
+    background-position: center;
+        }
+
+
+        a {
+            color: #ffcc00;
+        }
+                /* Navigation links */
+                .top-nav {
+            background-color: #222; /* Background color for the navigation bar */
+            text-align: center; /* Center-align the links */
+            padding: 10px 0; /* Add some padding */
+        }
+
+        .top-nav a {
+            color: #ffcc00;
+            text-decoration: none; /* Remove underline */
+            margin: 0 10px; /* Add spacing between links */
+        }
+
+    
+    </style>
 </head>
 <body>
+
+    <div class="top-nav">
+        <a href="/" style="color: #ffcc00;">Home</a>
+        <a href="/about" style="color: #ffcc00;">About</a>
+        <a href="/logout" style="color: #ffcc00;">Logout</a>
+    </div>
+
     <h1>Weather Report</h1>
 
-    <!-- Input field for place name -->
     <input type="text" id="placeInput" placeholder="Enter a place">
     <button onclick="getWeather()">Get Weather</button>
 
@@ -65,7 +92,6 @@
     </div>
 
     <script>
-        // Replace 'YOUR_API_KEY' with your actual OpenWeatherMap API key
         const apiKey = 'd6a5dac8291831f40e26f96f4554b01e';
 
         function getWeather() {
