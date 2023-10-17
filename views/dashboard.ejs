@@ -1,3 +1,4 @@
+<!--
 <!DOCTYPE html>
 <html>
 <head>
@@ -88,7 +89,7 @@
     <button onclick="getWeather()">Get Weather</button>
 
     <div id="weatherData">
-        <!-- Weather data will be displayed here -->
+        Weather data will be displayed here 
     </div>
 
     <script>
@@ -123,6 +124,211 @@
                 .catch(error => {
                     console.error('Error fetching weather data:', error);
                     document.getElementById('weatherData').textContent = 'Error fetching weather data';
+                });
+        }
+    </script>
+</body>
+</html>
+-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News API - Top Headlines</title>
+    <style> body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        background-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/1400/139255105932427.5f8487fcab0d4.jpg');
+    font-family: Arial, sans-serif;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 20px;  
+    }
+
+    .top-nav {
+        background-color: #20cf0c;
+        padding: 10px;
+        text-align: right;
+    }
+
+    .top-nav a {
+        color: #0737e6;
+        margin-right: 100px;
+        text-decoration: none;
+        text-align: center;
+    }
+
+    h1 {
+        color: #f9f3f3;
+    }
+
+    label {
+        display: block;
+        font-weight: bold;
+        margin-top: 20px;
+    }
+
+    input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    button {
+        background-color: #ffcc00;
+        color: #333;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #ff9900;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    li {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        margin: 10px 0;
+        padding: 10px;
+        border-radius: 4px;
+    }
+
+    a {
+        color: #ffcc00;
+        text-decoration: none;
+    }
+    a:hover {
+            text-decoration: underline;
+        }
+        </style>
+</head>
+<body>
+    <div class="top-nav">
+        <a href="/" >Home</a>
+        <a href="/about" >About</a>
+        <a href="/logout" >Logout</a>
+    </div>
+    <h1>Top Headlines</h1>
+    <label for="country">Enter Country Name:</label>
+    <input type="text" id="countryInput" placeholder="e.g., United States">
+    <button onclick="fetchNews()">Fetch Headlines</button>
+    <ul id="newsList"></ul>
+
+    <script>
+        // Replace 'YOUR_API_KEY' with your actual NewsAPI key
+        const apiKey = 'aef0ee2f3ad14cc48468fe845604d4c6';
+
+        function fetchNews() {
+            const countryInput = document.getElementById('countryInput').value.trim();
+            const countryMappings = {
+    'United States': 'us',
+    'United Kingdom': 'gb',
+    'India': 'in',
+    'Canada': 'ca',
+    'Australia': 'au',
+    'Germany': 'de',
+    'France': 'fr',
+    'Japan': 'jp',
+    'China': 'cn',
+    'South Korea': 'kr',
+    'Russia': 'ru',
+    'Brazil': 'br',
+    'Mexico': 'mx',
+    'Argentina': 'ar',
+    'South Africa': 'za',
+    'Nigeria': 'ng',
+    'Egypt': 'eg',
+    'Saudi Arabia': 'sa',
+    'Turkey': 'tr',
+    'Italy': 'it',
+    'Spain': 'es',
+    'Greece': 'gr',
+    'Sweden': 'se',
+    'Norway': 'no',
+    'Denmark': 'dk',
+    'Netherlands': 'nl',
+    'Belgium': 'be',
+    'Switzerland': 'ch',
+    'Austria': 'at',
+    'Portugal': 'pt',
+    'Ireland': 'ie',
+    'New Zealand': 'nz',
+    'Singapore': 'sg',
+    'Malaysia': 'my',
+    'Thailand': 'th',
+    'Vietnam': 'vn',
+    'Poland': 'pl',
+    'Czech Republic': 'cz',
+    'Hungary': 'hu',
+    'Romania': 'ro',
+    'Bulgaria': 'bg',
+    'Croatia': 'hr',
+    'Serbia': 'rs',
+    'Ghana': 'gh',
+    'Kenya': 'ke',
+    'Uganda': 'ug',
+    'Israel': 'il',
+    'Jordan': 'jo',
+    'Lebanon': 'lb',
+    'Qatar': 'qa',
+    'UAE': 'ae',
+    // Add more country mappings as needed
+};
+
+
+            const countryCode = countryMappings[countryInput];
+            
+            if (!countryCode) {
+                alert('Invalid country name. Please enter a valid country name from the list.');
+                return;
+            }
+
+            const apiUrl = `https://newsapi.org/v2/top-headlines?country=${countryCode}&apiKey=${apiKey}`;
+
+            fetch(apiUrl)
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.status === 'ok') {
+                        const articles = data.articles;
+                        const newsList = document.getElementById('newsList');
+                        newsList.innerHTML = ''; // Clear previous results
+
+                        articles.forEach((article) => {
+                            const listItem = document.createElement('li');
+                            const title = document.createElement('h2');
+                            const source = document.createElement('p');
+                            const description = document.createElement('p');
+                            const link = document.createElement('a');
+
+                            title.textContent = article.title;
+                            source.textContent = `Source: ${article.source.name}`;
+                            description.textContent = article.description;
+                            link.textContent = 'Read more';
+                            link.href = article.url;
+                            link.target = '_blank';
+
+                            listItem.appendChild(title);
+                            listItem.appendChild(source);
+                            listItem.appendChild(description);
+                            listItem.appendChild(link);
+                            newsList.appendChild(listItem);
+                        });
+                    } else {
+                        console.error('Error fetching news:', data.message);
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
                 });
         }
     </script>
